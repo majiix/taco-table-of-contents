@@ -1,0 +1,379 @@
+<?php
+/**
+ * Admin specific functionality for Taco Table of Contents.
+ *
+ * @package Taco_Table_Of_Contents
+ */
+
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
+/**
+ * Enqueue admin-specific styles.
+ *
+ * @since 1.7.0
+ * @param string $hook The current admin page hook.
+ * @return void
+ */
+function tacotoc_enqueue_admin_assets( $hook ) {
+	// Only load on our settings page.
+	if ( 'settings_page_tacotoc-settings' !== $hook ) {
+		return;
+	}
+
+	wp_enqueue_style(
+		'tacotoc-admin-css',
+		TACOTOC_PLUGIN_URL . 'assets/css/taco-admin.css',
+		array(),
+		TACOTOC_VERSION
+	);
+}
+add_action( 'admin_enqueue_scripts', 'tacotoc_enqueue_admin_assets' );
+
+/**
+ * Register the settings for the plugin.
+ *
+ * @since 1.1.0
+ * @return void
+ */
+function tacotoc_register_settings() {
+	// Register content selector setting.
+	register_setting(
+		'tacotoc_options_group',
+		'tacotoc_content_selector',
+		array(
+			'type'              => 'string',
+			'sanitize_callback' => 'sanitize_text_field',
+			'default'           => '.entry-content',
+		)
+	);
+
+	// Register post types setting with strict validation.
+	register_setting(
+		'tacotoc_options_group',
+		'tacotoc_post_types',
+		array(
+			'type'              => 'array',
+			'sanitize_callback' => 'tacotoc_sanitize_post_types',
+			'default'           => array( 'post', 'page' ),
+		)
+	);
+
+	// Register headings setting.
+	register_setting(
+		'tacotoc_options_group',
+		'tacotoc_headings',
+		array(
+			'type'              => 'array',
+			'sanitize_callback' => 'tacotoc_sanitize_headings',
+			'default'           => array( 'h1', 'h2', 'h3' ),
+		)
+	);
+
+	// Register collapsible headings setting.
+	register_setting(
+		'tacotoc_options_group',
+		'tacotoc_collapsible_headings',
+		array(
+			'type'              => 'array',
+			'sanitize_callback' => 'tacotoc_sanitize_headings',
+			'default'           => array(),
+		)
+	);
+
+	// Register display location setting.
+	register_setting(
+		'tacotoc_options_group',
+		'tacotoc_display_location',
+		array(
+			'type'              => 'string',
+			'sanitize_callback' => 'sanitize_text_field',
+			'default'           => 'manual',
+		)
+	);
+
+	add_settings_section(
+		'tacotoc_main_section',
+		__( 'Configuration', 'taco-table-of-contents' ),
+		'tacotoc_main_section_callback',
+		'tacotoc-settings-page'
+	);
+
+	add_settings_field(
+		'tacotoc_display_location',
+		__( 'Display Location', 'taco-table-of-contents' ),
+		'tacotoc_display_location_render',
+		'tacotoc-settings-page',
+		'tacotoc_main_section'
+	);
+
+	add_settings_field(
+		'tacotoc_headings',
+		__( 'Headings to Include', 'taco-table-of-contents' ),
+		'tacotoc_headings_field_render',
+		'tacotoc-settings-page',
+		'tacotoc_main_section'
+	);
+
+	add_settings_field(
+		'tacotoc_collapsible_headings',
+		__( 'Collapsible Headings', 'taco-table-of-contents' ),
+		'tacotoc_collapsible_headings_field_render',
+		'tacotoc-settings-page',
+		'tacotoc_main_section'
+	);
+
+	add_settings_field(
+		'tacotoc_post_types',
+		__( 'Enable on Post Types', 'taco-table-of-contents' ),
+		'tacotoc_post_types_field_render',
+		'tacotoc-settings-page',
+		'tacotoc_main_section'
+	);
+
+	add_settings_field(
+		'tacotoc_content_selector',
+		__( 'Content Selector', 'taco-table-of-contents' ),
+		'tacotoc_selector_field_render',
+		'tacotoc-settings-page',
+		'tacotoc_main_section'
+	);
+}
+add_action( 'admin_init', 'tacotoc_register_settings' );
+
+/**
+ * Sanitize the post types checkbox array against a whitelist of valid post types.
+ *
+ * @since 1.7.1
+ * @param array $input The raw input array from the form.
+ * @return array The sanitized array of strings.
+ */
+function tacotoc_sanitize_post_types( $input ) {
+	if ( ! is_array( $input ) ) {
+		return array();
+	}
+
+	// Retrieve a whitelist of valid public post types available on the site.
+	$args = array(
+		'public' => true,
+	);
+	$allowed_post_types = get_post_types( $args, 'names' );
+
+	// Sanitize raw input values to keys.
+	$sanitized_input = array_map( 'sanitize_key', $input );
+
+	// Intersect the arrays to ensure we only save valid, existing post types.
+	return array_intersect( $sanitized_input, $allowed_post_types );
+}
+
+/**
+ * Sanitize the headings checkbox array.
+ *
+ * @since 1.5.2
+ * @param array $input The raw input array from the form.
+ * @return array The sanitized array of strings.
+ */
+function tacotoc_sanitize_headings( $input ) {
+	if ( ! is_array( $input ) ) {
+		return array();
+	}
+	$allowed = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
+	return array_intersect( $input, $allowed );
+}
+
+/**
+ * Render the description for the main settings section.
+ *
+ * @since 1.1.0
+ * @return void
+ */
+function tacotoc_main_section_callback() {
+	esc_html_e( 'Customize how the Table of Contents appears on your site.', 'taco-table-of-contents' );
+}
+
+/**
+ * Render the input field for the content selector.
+ */
+function tacotoc_selector_field_render() {
+	$option = get_option( 'tacotoc_content_selector', '.entry-content' );
+	?>
+	<input type="text"
+		name="tacotoc_content_selector"
+		value="<?php echo esc_attr( $option ); ?>"
+		class="regular-text"
+		placeholder=".entry-content" />
+	<p class="description">
+		<?php esc_html_e( 'The CSS class or ID of the text wrapper (e.g., .entry-content, #main).', 'taco-table-of-contents' ); ?>
+	</p>
+	<?php
+}
+
+/**
+ * Render the checkboxes for selecting post types.
+ */
+function tacotoc_post_types_field_render() {
+	$options = get_option( 'tacotoc_post_types', array( 'post', 'page' ) );
+	if ( ! is_array( $options ) ) {
+		$options = array( 'post', 'page' );
+	}
+
+	$args = array(
+		'public' => true,
+	);
+	$post_types = get_post_types( $args, 'objects' );
+
+	echo '<div class="tacotoc-checkbox-grid">';
+	foreach ( $post_types as $post_type ) {
+		if ( 'attachment' === $post_type->name ) {
+			continue;
+		}
+
+		$checked = in_array( $post_type->name, $options, true ) ? 'checked="checked"' : '';
+		?>
+		<label class="tacotoc-checkbox-label">
+			<input type="checkbox" name="tacotoc_post_types[]" value="<?php echo esc_attr( $post_type->name ); ?>" <?php echo $checked; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<?php echo esc_html( $post_type->label ); ?>
+		</label>
+		<?php
+	}
+	echo '</div>';
+}
+
+/**
+ * Render the checkboxes for selecting headings.
+ */
+function tacotoc_headings_field_render() {
+	$options = get_option( 'tacotoc_headings', array( 'h1', 'h2', 'h3' ) );
+	if ( ! is_array( $options ) ) {
+		$options = array( 'h1', 'h2', 'h3' );
+	}
+
+	$headings = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
+
+	echo '<div class="tacotoc-checkbox-grid">';
+	foreach ( $headings as $heading ) {
+		$checked = in_array( $heading, $options, true ) ? 'checked="checked"' : '';
+		?>
+		<label class="tacotoc-checkbox-label">
+			<input type="checkbox" name="tacotoc_headings[]" value="<?php echo esc_attr( $heading ); ?>" <?php echo $checked; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<?php echo esc_html( strtoupper( $heading ) ); ?>
+		</label>
+		<?php
+	}
+	echo '</div>';
+}
+
+/**
+ * Render the checkboxes for selecting collapsible headings.
+ */
+function tacotoc_collapsible_headings_field_render() {
+	$options = get_option( 'tacotoc_collapsible_headings', array() );
+	if ( ! is_array( $options ) ) {
+		$options = array();
+	}
+
+	$headings = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
+
+	echo '<div class="tacotoc-checkbox-grid">';
+	foreach ( $headings as $heading ) {
+		$checked = in_array( $heading, $options, true ) ? 'checked="checked"' : '';
+		?>
+		<label class="tacotoc-checkbox-label">
+			<input type="checkbox" name="tacotoc_collapsible_headings[]" value="<?php echo esc_attr( $heading ); ?>" <?php echo $checked; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<?php echo esc_html( strtoupper( $heading ) ); ?>
+		</label>
+		<?php
+	}
+	echo '</div>';
+	echo '<p class="description">' . esc_html__( 'Select the headings that should be collapsed under their parent tag by default. A toggle icon (+/-) will be added to the parent.', 'taco-table-of-contents' ) . '</p>';
+}
+
+/**
+ * Render the display location select.
+ */
+function tacotoc_display_location_render() {
+	$option = get_option( 'tacotoc_display_location', 'manual' );
+	?>
+	<select name="tacotoc_display_location" class="tacotoc-select">
+		<option value="manual" <?php selected( 'manual', $option ); ?>><?php esc_html_e( 'Manual (Shortcode Only)', 'taco-table-of-contents' ); ?></option>
+		<option value="before" <?php selected( 'before', $option ); ?>><?php esc_html_e( 'Auto Insert - Before Content', 'taco-table-of-contents' ); ?></option>
+		<option value="after" <?php selected( 'after', $option ); ?>><?php esc_html_e( 'Auto Insert - After Content', 'taco-table-of-contents' ); ?></option>
+	</select>
+	<p class="description">
+		<?php esc_html_e( 'Where should the Table of Contents appear automatically?', 'taco-table-of-contents' ); ?>
+	</p>
+	<?php
+}
+
+/**
+ * Add the settings page to the admin menu.
+ *
+ * @since 1.1.0
+ * @return void
+ */
+function tacotoc_add_admin_menu() {
+	add_options_page(
+		__( 'Taco TOC Settings', 'taco-table-of-contents' ),
+		__( 'Taco TOC', 'taco-table-of-contents' ),
+		'manage_options',
+		'tacotoc-settings',
+		'tacotoc_render_settings_page'
+	);
+}
+add_action( 'admin_menu', 'tacotoc_add_admin_menu' );
+
+/**
+ * Render the HTML for the settings page with a modern layout.
+ *
+ * @since 1.1.0
+ * @return void
+ */
+function tacotoc_render_settings_page() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	?>
+	<div class="wrap tacotoc-admin-wrapper">
+		<div class="tacotoc-header">
+			<h1><?php echo esc_html( get_admin_page_title() ); ?> <span class="tacotoc-version">v<?php echo esc_html( TACOTOC_VERSION ); ?></span></h1>
+		</div>
+
+		<div class="tacotoc-container">
+			<!-- Main Settings Column -->
+			<div class="tacotoc-main-column">
+				<form action="options.php" method="post" class="tacotoc-card">
+					<?php
+					settings_fields( 'tacotoc_options_group' );
+					do_settings_sections( 'tacotoc-settings-page' );
+					submit_button( __( 'Save Changes', 'taco-table-of-contents' ), 'primary large' );
+					?>
+				</form>
+			</div>
+
+			<!-- Sidebar Help Column -->
+			<div class="tacotoc-sidebar-column">
+				<div class="tacotoc-card tacotoc-help-card">
+					<h3 class="tacotoc-card-title"><?php esc_html_e( 'How to Use', 'taco-table-of-contents' ); ?></h3>
+
+					<div class="tacotoc-help-item">
+						<h4><?php esc_html_e( '1. Auto Insertion', 'taco-table-of-contents' ); ?></h4>
+						<p><?php esc_html_e( 'Change "Display Location" to "Before Content" to automatically show the TOC on all enabled post types.', 'taco-table-of-contents' ); ?></p>
+					</div>
+
+					<div class="tacotoc-help-item">
+						<h4><?php esc_html_e( '2. Manual Placement', 'taco-table-of-contents' ); ?></h4>
+						<p><?php esc_html_e( 'Use the shortcode anywhere in your content:', 'taco-table-of-contents' ); ?></p>
+						<code class="tacotoc-code">[taco_toc]</code>
+					</div>
+
+					<div class="tacotoc-help-item">
+						<h4><?php esc_html_e( 'Troubleshooting', 'taco-table-of-contents' ); ?></h4>
+						<p><?php esc_html_e( 'If the TOC is empty, check the "Content Selector". It must match the CSS class of the div wrapping your post content (e.g., .entry-content).', 'taco-table-of-contents' ); ?></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php
+}

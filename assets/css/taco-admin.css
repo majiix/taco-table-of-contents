@@ -1,0 +1,146 @@
+.tacotoc-admin-wrapper {
+	margin-top: 20px;
+}
+
+.tacotoc-header {
+	margin-bottom: 20px;
+}
+
+.tacotoc-header h1 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.tacotoc-version {
+	font-size: 0.5em;
+	background: #e5e7eb;
+	color: #374151;
+	padding: 2px 8px;
+	border-radius: 12px;
+	font-weight: normal;
+	letter-spacing: 0.5px;
+}
+
+.tacotoc-container {
+	display: flex;
+	gap: 20px;
+	align-items: flex-start;
+}
+
+.tacotoc-main-column {
+	flex: 2;
+	min-width: 0; /* Prevents flex items from overflowing */
+}
+
+.tacotoc-sidebar-column {
+	flex: 1;
+	min-width: 280px;
+	max-width: 400px;
+}
+
+/* Card Style */
+.tacotoc-card {
+	background: #fff;
+	border: 1px solid #d1d5db; /* Gray 300 */
+	border-radius: 6px;
+	padding: 30px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.tacotoc-card-title {
+	margin-top: 0;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #e5e7eb;
+	color: #111827;
+	font-size: 1.1em;
+}
+
+/* Form Styles */
+.tacotoc-card .form-table th {
+	width: 200px;
+	color: #374151;
+	font-weight: 600;
+}
+
+.tacotoc-card input[type="text"],
+.tacotoc-card select {
+	border-color: #d1d5db;
+	border-radius: 4px;
+	padding: 4px 10px;
+}
+
+.tacotoc-card input[type="text"]:focus,
+.tacotoc-card select:focus {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* Checkbox Grid */
+.tacotoc-checkbox-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 5px;
+}
+
+.tacotoc-checkbox-label {
+	background: #f3f4f6;
+	padding: 5px 10px;
+	border-radius: 4px;
+	font-size: 0.9em;
+	color: #4b5563;
+	border: 1px solid #e5e7eb;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.tacotoc-checkbox-label:hover {
+	background: #e5e7eb;
+}
+
+/* Help Section */
+.tacotoc-help-item {
+	margin-bottom: 20px;
+}
+
+.tacotoc-help-item:last-child {
+	margin-bottom: 0;
+}
+
+.tacotoc-help-item h4 {
+	margin: 0 0 8px 0;
+	color: #111827;
+	font-size: 0.95em;
+}
+
+.tacotoc-help-item p {
+	margin: 0 0 8px 0;
+	color: #6b7280;
+	font-size: 0.9em;
+	line-height: 1.5;
+}
+
+.tacotoc-code {
+	display: block;
+	background: #f3f4f6;
+	padding: 8px;
+	border-radius: 4px;
+	color: #2563eb;
+	font-family: monospace;
+	text-align: center;
+	border: 1px dashed #d1d5db;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+	.tacotoc-container {
+		flex-direction: column;
+	}
+
+	.tacotoc-sidebar-column {
+		width: 100%;
+		max-width: none;
+	}
+}

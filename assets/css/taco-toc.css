@@ -1,0 +1,173 @@
+.tacotoc-wrapper {
+	background: #ffffff;
+	border: 1px solid #eeeded;
+	padding: 0;
+	border-radius: 10px;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+.tacotoc-title {
+	font-size: 0.8rem;
+	margin-bottom: 1rem;
+	font-weight: bold;
+	padding: 0.8rem !important;
+	background: #f9fafb;
+	color: #6B7280;
+}
+
+.tacotoc-wrapper ol {
+	margin: 0;
+	padding: 0 10px 10px 10px;
+	list-style-type: decimal;
+	list-style-position: inside;
+}
+
+.tacotoc-wrapper ol li {
+	margin-bottom: 0.5rem;
+	line-height: 1.4;
+	transition: all 0.2s ease;
+	font-size: 0.8rem;
+	position: relative;
+	padding-left: 20px; /* Reserve space for toggle button to prevent clipping */
+}
+
+.tacotoc-wrapper ol li a {
+	text-decoration: none;
+	color: inherit;
+	border-bottom: 1px solid transparent;
+	transition: border-color 0.2s;
+}
+
+.tacotoc-wrapper ol li a:hover {
+	border-bottom-color: currentColor;
+}
+
+/* Toggle Styles */
+.tacotoc-toggle {
+	background: none;
+	border: 1px solid transparent;
+	cursor: pointer;
+	padding: 0;
+	width: 16px;
+	height: 16px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	font-weight: bold;
+	color: #6B7280;
+	line-height: 1;
+	transition: all 0.2s ease;
+	position: absolute;
+	left: 0; /* Align inside the padding-left */
+	top: 3px;
+}
+
+body.rtl .tacotoc-wrapper ol li {
+	padding-left: 0;
+	padding-right: 20px;
+}
+
+body.rtl .tacotoc-toggle {
+	left: auto !important;
+	right: 0; /* Align inside the padding-right for RTL */
+}
+
+.tacotoc-toggle:hover {
+	color: #111827;
+	background-color: #f3f4f6;
+	border-radius: 4px;
+}
+
+/* Active State Styles */
+.tacotoc-wrapper ol li.active > a {
+	font-weight: 600;
+	color: #4387f6; /* Standard WordPress Blue */
+}
+
+/* Indentation logic */
+.tacotoc-h2 {
+	margin-left: 1.5rem !important;
+}
+
+.tacotoc-h3 {
+	margin-left: 3rem !important;
+}
+
+.tacotoc-h4 {
+	margin-left: 4.5rem !important;
+}
+
+.tacotoc-h5 {
+	margin-left: 6rem !important;
+}
+
+.tacotoc-h6 {
+	margin-left: 7.5rem !important;
+}
+
+/* RTL Support */
+body.rtl .tacotoc-h2 {
+	margin-left: 0 !important;
+	margin-right: 1.5rem !important;
+}
+
+body.rtl .tacotoc-h3 {
+	margin-left: 0 !important;
+	margin-right: 3rem !important;
+}
+
+body.rtl .tacotoc-h4 {
+	margin-left: 0 !important;
+	margin-right: 4.5rem !important;
+}
+
+body.rtl .tacotoc-h5 {
+	margin-left: 0 !important;
+	margin-right: 6rem !important;
+}
+
+body.rtl .tacotoc-h6 {
+	margin-left: 0 !important;
+	margin-right: 7.5rem !important;
+}
+
+/* Skeleton Loader Styles */
+.tacotoc-skeleton-line {
+	height: 12px;
+	margin-bottom: 10px;
+	background: #e0e0e0;
+	background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+	background-size: 200% 100%;
+	animation: tacotoc-loading 1.5s infinite ease-in-out;
+	border-radius: 4px;
+}
+
+/* Skeleton Width Utilities */
+.tacotoc-skeleton-header {
+	width: 40%;
+	height: 20px;
+	margin-bottom: 20px;
+}
+
+.tacotoc-skeleton-100 {
+	width: 100%;
+}
+
+.tacotoc-skeleton-90 {
+	width: 90%;
+}
+
+.tacotoc-skeleton-95 {
+	width: 95%;
+}
+
+.tacotoc-skeleton-80 {
+	width: 80%;
+}
+
+@keyframes tacotoc-loading {
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
+}
