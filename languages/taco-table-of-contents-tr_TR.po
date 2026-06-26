@@ -1,11 +1,9 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Project-Id-Version: Taco Table of Contents\n"
 "POT-Creation-Date: 2026-06-26 21:10+0330\n"
-"PO-Revision-Date: 2026-02-14 12:34+0330\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2026-06-26 21:14+0330\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,8 +14,10 @@ msgstr ""
 "X-Poedit-WPHeader: taco-table-of-contents.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: tr\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -125,7 +125,7 @@ msgstr ""
 
 #: includes/frontend.php:60
 msgid "Table of Contents"
-msgstr ""
+msgstr "İçindekiler"
 
 #. Plugin Name of the plugin/theme
 msgid "Taco Table of Contents"
@@ -137,8 +137,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Generates a Table of Contents from heading tags. Supports auto-insertion "
-"and manual shortcode placement. Active item highlights on scroll."
+"Generates a Table of Contents from heading tags. Supports auto-insertion and "
+"manual shortcode placement. Active item highlights on scroll."
 msgstr ""
 
 #. Author of the plugin/theme

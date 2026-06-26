@@ -1,115 +1,129 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Project-Id-Version: Taco Table of Contents\n"
-"POT-Creation-Date: 2026-02-14 12:34+0330\n"
-"PO-Revision-Date: 2026-02-14 12:43+0330\n"
+"POT-Creation-Date: 2026-06-26 21:11+0330\n"
+"PO-Revision-Date: 2026-06-26 21:11+0330\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: ur\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: taco-table-of-contents.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: \n"
-"Language: ur\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: includes/admin.php:87
+#: includes/admin.php:98
 msgid "Configuration"
 msgstr ""
 
-#: includes/admin.php:94
+#: includes/admin.php:105
 msgid "Display Location"
 msgstr ""
 
-#: includes/admin.php:102
+#: includes/admin.php:113
 msgid "Headings to Include"
 msgstr ""
 
-#: includes/admin.php:110
+#: includes/admin.php:121
+msgid "Collapsible Headings"
+msgstr ""
+
+#: includes/admin.php:129
 msgid "Enable on Post Types"
 msgstr ""
 
-#: includes/admin.php:118
+#: includes/admin.php:137
 msgid "Content Selector"
 msgstr ""
 
-#: includes/admin.php:162
+#: includes/admin.php:192
 msgid "Customize how the Table of Contents appears on your site."
 msgstr ""
 
-#: includes/admin.php:177
+#: includes/admin.php:207
 msgid "The CSS class or ID of the text wrapper (e.g., .entry-content, #main)."
 msgstr ""
 
-#: includes/admin.php:244
+#: includes/admin.php:286
+msgid ""
+"Select the headings that should be collapsed under their parent tag by "
+"default. A toggle icon (+/-) will be added to the parent."
+msgstr ""
+
+#: includes/admin.php:296
 msgid "Manual (Shortcode Only)"
 msgstr ""
 
-#: includes/admin.php:245
+#: includes/admin.php:297
 msgid "Auto Insert - Before Content"
 msgstr ""
 
-#: includes/admin.php:246
+#: includes/admin.php:298
 msgid "Auto Insert - After Content"
 msgstr ""
 
-#: includes/admin.php:249
+#: includes/admin.php:301
 msgid "Where should the Table of Contents appear automatically?"
 msgstr ""
 
-#: includes/admin.php:262
+#: includes/admin.php:314
 msgid "Taco TOC Settings"
 msgstr ""
 
-#: includes/admin.php:263
+#: includes/admin.php:315
 msgid "Taco TOC"
 msgstr ""
 
-#: includes/admin.php:294
+#: includes/admin.php:331
+msgid "Settings"
+msgstr ""
+
+#: includes/admin.php:360
 msgid "Save Changes"
 msgstr ""
 
-#: includes/admin.php:302
+#: includes/admin.php:368
 msgid "How to Use"
 msgstr ""
 
-#: includes/admin.php:305
+#: includes/admin.php:371
 msgid "1. Auto Insertion"
 msgstr ""
 
-#: includes/admin.php:306
+#: includes/admin.php:372
 msgid ""
 "Change \"Display Location\" to \"Before Content\" to automatically show the "
 "TOC on all enabled post types."
 msgstr ""
 
-#: includes/admin.php:310
+#: includes/admin.php:376
 msgid "2. Manual Placement"
 msgstr ""
 
-#: includes/admin.php:311
+#: includes/admin.php:377
 msgid "Use the shortcode anywhere in your content:"
 msgstr ""
 
-#: includes/admin.php:316
+#: includes/admin.php:382
 msgid "Troubleshooting"
 msgstr ""
 
-#: includes/admin.php:317
+#: includes/admin.php:383
 msgid ""
 "If the TOC is empty, check the \"Content Selector\". It must match the CSS "
 "class of the div wrapping your post content (e.g., .entry-content)."
 msgstr ""
 
-#: includes/frontend.php:65
+#: includes/frontend.php:60
 msgid "Table of Contents"
 msgstr "مندرجات کا جدول"
 
@@ -123,8 +137,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Generates a Table of Contents from h1, h2, and h3 tags. Only works via "
-"[taco_toc] shortcode. Active item highlights on scroll."
+"Generates a Table of Contents from heading tags. Supports auto-insertion and "
+"manual shortcode placement. Active item highlights on scroll."
 msgstr ""
 
 #. Author of the plugin/theme

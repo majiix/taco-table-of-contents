@@ -1,139 +1,228 @@
+/* Modern & Premium Admin Dashboard Styles for Taco Table of Contents */
+
 .tacotoc-admin-wrapper {
-	margin-top: 20px;
+	margin: 24px 20px 0 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .tacotoc-header {
-	margin-bottom: 20px;
+	margin-bottom: 24px;
 }
 
 .tacotoc-header h1 {
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: 12px;
+	font-size: 24px;
+	font-weight: 700;
+	color: #1e293b;
+	margin: 0;
 }
 
 .tacotoc-version {
-	font-size: 0.5em;
-	background: #e5e7eb;
-	color: #374151;
-	padding: 2px 8px;
-	border-radius: 12px;
-	font-weight: normal;
+	font-size: 11px;
+	background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+	color: #475569;
+	padding: 3px 10px;
+	border-radius: 9999px;
+	font-weight: 600;
 	letter-spacing: 0.5px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .tacotoc-container {
 	display: flex;
-	gap: 20px;
+	gap: 24px;
 	align-items: flex-start;
 }
 
 .tacotoc-main-column {
 	flex: 2;
-	min-width: 0; /* Prevents flex items from overflowing */
+	min-width: 0;
 }
 
 .tacotoc-sidebar-column {
 	flex: 1;
-	min-width: 280px;
-	max-width: 400px;
+	min-width: 290px;
+	max-width: 380px;
 }
 
-/* Card Style */
+/* Premium Card Design */
 .tacotoc-card {
-	background: #fff;
-	border: 1px solid #d1d5db; /* Gray 300 */
-	border-radius: 6px;
-	padding: 30px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	padding: 32px;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+	transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.tacotoc-card:hover {
+	border-color: #cbd5e1;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
 }
 
 .tacotoc-card-title {
+	margin: 0 0 20px 0;
+	padding-bottom: 16px;
+	border-bottom: 2px solid #f1f5f9;
+	color: #0f172a;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+/* Settings Form Tables */
+.tacotoc-card .form-table {
 	margin-top: 0;
-	padding-bottom: 15px;
-	border-bottom: 1px solid #e5e7eb;
-	color: #111827;
-	font-size: 1.1em;
 }
 
-/* Form Styles */
 .tacotoc-card .form-table th {
-	width: 200px;
-	color: #374151;
+	width: 220px;
+	padding: 20px 10px 20px 0;
+	color: #334155;
 	font-weight: 600;
+	font-size: 14px;
 }
 
+.tacotoc-card .form-table td {
+	padding: 15px 0;
+}
+
+/* Inputs & Form Controls */
 .tacotoc-card input[type="text"],
-.tacotoc-card select {
-	border-color: #d1d5db;
-	border-radius: 4px;
-	padding: 4px 10px;
+.tacotoc-card select.tacotoc-select {
+	background-color: #f8fafc;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	padding: 8px 14px;
+	font-size: 14px;
+	color: #1e293b;
+	min-height: 40px;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+	transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .tacotoc-card input[type="text"]:focus,
-.tacotoc-card select:focus {
-	border-color: #2271b1;
-	box-shadow: 0 0 0 1px #2271b1;
+.tacotoc-card select.tacotoc-select:focus {
+	background-color: #ffffff;
+	border-color: #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+	outline: 0;
 }
 
-/* Checkbox Grid */
+/* Checkbox Grid Layout */
 .tacotoc-checkbox-grid {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 10px;
-	margin-top: 5px;
+	gap: 8px;
+	margin-top: 6px;
 }
 
 .tacotoc-checkbox-label {
-	background: #f3f4f6;
-	padding: 5px 10px;
-	border-radius: 4px;
-	font-size: 0.9em;
-	color: #4b5563;
-	border: 1px solid #e5e7eb;
+	background: #f8fafc;
+	padding: 8px 16px;
+	border-radius: 8px;
+	font-size: 13px;
+	font-weight: 500;
+	color: #475569;
+	border: 1px solid #e2e8f0;
 	display: flex;
 	align-items: center;
-	gap: 6px;
+	gap: 8px;
+	cursor: pointer;
+	user-select: none;
+	transition: all 0.2s ease;
+}
+
+.tacotoc-checkbox-label input[type="checkbox"] {
+	margin: 0;
+	border-radius: 4px;
+	border-color: #cbd5e1;
 }
 
 .tacotoc-checkbox-label:hover {
-	background: #e5e7eb;
+	background: #f1f5f9;
+	border-color: #cbd5e1;
+	color: #1e293b;
 }
 
-/* Help Section */
+/* Description Typography */
+.description {
+	color: #64748b;
+	font-size: 13px;
+	margin-top: 8px;
+	line-height: 1.5;
+}
+
+/* Help Sidebar Panel */
+.tacotoc-help-card {
+	background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 100%);
+	border-left: 4px solid #3b82f6;
+}
+
 .tacotoc-help-item {
-	margin-bottom: 20px;
+	margin-bottom: 24px;
+	padding-bottom: 16px;
+	border-bottom: 1px dashed #e2e8f0;
 }
 
 .tacotoc-help-item:last-child {
 	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom: none;
 }
 
 .tacotoc-help-item h4 {
-	margin: 0 0 8px 0;
-	color: #111827;
-	font-size: 0.95em;
+	margin: 0 0 6px 0;
+	color: #1e293b;
+	font-size: 14px;
+	font-weight: 600;
 }
 
 .tacotoc-help-item p {
-	margin: 0 0 8px 0;
-	color: #6b7280;
-	font-size: 0.9em;
-	line-height: 1.5;
+	margin: 0 0 10px 0;
+	color: #475569;
+	font-size: 13px;
+	line-height: 1.6;
 }
 
 .tacotoc-code {
-	display: block;
-	background: #f3f4f6;
-	padding: 8px;
-	border-radius: 4px;
+	display: inline-block;
+	width: 100%;
+	box-sizing: border-box;
+	background: #ffffff;
+	padding: 10px;
+	border-radius: 6px;
 	color: #2563eb;
-	font-family: monospace;
+	font-family: Consolas, Monaco, monospace;
+	font-size: 13px;
 	text-align: center;
-	border: 1px dashed #d1d5db;
+	border: 1px solid #e2e8f0;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Responsive */
+/* Submit Button Customizations */
+.tacotoc-card input[type="submit"].button-primary {
+	background: #3b82f6 !important;
+	border-color: #2563eb !important;
+	box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2) !important;
+	text-shadow: none !important;
+	border-radius: 8px !important;
+	padding: 0 24px !important;
+	height: 44px !important;
+	line-height: 42px !important;
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	transition: all 0.2s ease !important;
+}
+
+.tacotoc-card input[type="submit"].button-primary:hover {
+	background: #2563eb !important;
+	border-color: #1d4ed8 !important;
+	box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Responsive Grid Adaptations */
 @media (max-width: 960px) {
 	.tacotoc-container {
 		flex-direction: column;

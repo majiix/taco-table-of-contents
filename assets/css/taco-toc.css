@@ -1,171 +1,197 @@
+/* Modern & Beautiful Frontend CSS for Taco Table of Contents */
+
 .tacotoc-wrapper {
 	background: #ffffff;
-	border: 1px solid #eeeded;
+	border: 1px solid #e2e8f0;
 	padding: 0;
-	border-radius: 10px;
+	border-radius: 12px;
 	max-width: 100%;
 	overflow: hidden;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+	margin: 20px 0;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tacotoc-wrapper:hover {
+	border-color: #cbd5e1;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
 }
 
 .tacotoc-title {
-	font-size: 0.8rem;
-	margin-bottom: 1rem;
-	font-weight: bold;
-	padding: 0.8rem !important;
-	background: #f9fafb;
-	color: #6B7280;
+	font-size: 14px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	margin: 0;
+	padding: 16px 20px !important;
+	background: #f8fafc;
+	color: #475569;
+	border-bottom: 1px solid #e2e8f0;
 }
 
 .tacotoc-wrapper ol {
 	margin: 0;
-	padding: 0 10px 10px 10px;
-	list-style-type: decimal;
-	list-style-position: inside;
+	padding: 16px 20px;
+	list-style-type: none; /* Switch to CSS counters or custom indicators if preferred, or keep standard list */
 }
 
 .tacotoc-wrapper ol li {
-	margin-bottom: 0.5rem;
-	line-height: 1.4;
-	transition: all 0.2s ease;
-	font-size: 0.8rem;
+	margin-bottom: 8px;
+	line-height: 1.6;
+	font-size: 14px;
 	position: relative;
-	padding-left: 20px; /* Reserve space for toggle button to prevent clipping */
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.tacotoc-wrapper ol li:last-child {
+	margin-bottom: 0;
 }
 
 .tacotoc-wrapper ol li a {
 	text-decoration: none;
-	color: inherit;
-	border-bottom: 1px solid transparent;
-	transition: border-color 0.2s;
+	color: #475569;
+	font-weight: 500;
+	transition: color 0.2s ease, transform 0.2s ease;
+	display: inline-block;
+	padding: 2px 0;
 }
 
 .tacotoc-wrapper ol li a:hover {
-	border-bottom-color: currentColor;
+	color: #2563eb;
+	transform: translateX(2px);
 }
 
-/* Toggle Styles */
+/* Toggle Expansion Button */
 .tacotoc-toggle {
-	background: none;
-	border: 1px solid transparent;
+	background: #f1f5f9;
+	border: 1px solid #e2e8f0;
 	cursor: pointer;
 	padding: 0;
-	width: 16px;
-	height: 16px;
+	width: 20px;
+	height: 20px;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 14px;
-	font-weight: bold;
-	color: #6B7280;
+	font-size: 11px;
+	font-weight: 700;
+	color: #64748b;
 	line-height: 1;
+	border-radius: 6px;
+	margin-right: 8px;
 	transition: all 0.2s ease;
-	position: absolute;
-	left: 0; /* Align inside the padding-left */
-	top: 3px;
-}
-
-body.rtl .tacotoc-wrapper ol li {
-	padding-left: 0;
-	padding-right: 20px;
-}
-
-body.rtl .tacotoc-toggle {
-	left: auto !important;
-	right: 0; /* Align inside the padding-right for RTL */
 }
 
 .tacotoc-toggle:hover {
-	color: #111827;
-	background-color: #f3f4f6;
-	border-radius: 4px;
+	color: #1e293b;
+	background-color: #e2e8f0;
+	border-color: #cbd5e1;
 }
 
-/* Active State Styles */
+/* Active State Highlighting */
 .tacotoc-wrapper ol li.active > a {
-	font-weight: 600;
-	color: #4387f6; /* Standard WordPress Blue */
+	font-weight: 700;
+	color: #2563eb; /* Modern Blue */
 }
 
-/* Indentation logic */
+.tacotoc-wrapper ol li.active {
+	background: rgba(37, 99, 235, 0.04);
+	border-radius: 6px;
+	padding-left: 8px;
+	margin-left: -8px;
+}
+
+/* Indentation Hierarchy */
+.tacotoc-h1 {
+	padding-left: 0;
+}
+
 .tacotoc-h2 {
-	margin-left: 1.5rem !important;
+	margin-left: 16px !important;
 }
 
 .tacotoc-h3 {
-	margin-left: 3rem !important;
+	margin-left: 32px !important;
 }
 
 .tacotoc-h4 {
-	margin-left: 4.5rem !important;
+	margin-left: 48px !important;
 }
 
 .tacotoc-h5 {
-	margin-left: 6rem !important;
+	margin-left: 64px !important;
 }
 
 .tacotoc-h6 {
-	margin-left: 7.5rem !important;
+	margin-left: 80px !important;
 }
 
-/* RTL Support */
+/* RTL Support Adaptations */
+body.rtl .tacotoc-wrapper ol li.active {
+	padding-left: 0;
+	padding-right: 8px;
+	margin-left: 0;
+	margin-right: -8px;
+}
+
+body.rtl .tacotoc-toggle {
+	margin-right: 0;
+	margin-left: 8px;
+}
+
 body.rtl .tacotoc-h2 {
 	margin-left: 0 !important;
-	margin-right: 1.5rem !important;
+	margin-right: 16px !important;
 }
 
 body.rtl .tacotoc-h3 {
 	margin-left: 0 !important;
-	margin-right: 3rem !important;
+	margin-right: 32px !important;
 }
 
 body.rtl .tacotoc-h4 {
 	margin-left: 0 !important;
-	margin-right: 4.5rem !important;
+	margin-right: 48px !important;
 }
 
 body.rtl .tacotoc-h5 {
 	margin-left: 0 !important;
-	margin-right: 6rem !important;
+	margin-right: 64px !important;
 }
 
 body.rtl .tacotoc-h6 {
 	margin-left: 0 !important;
-	margin-right: 7.5rem !important;
+	margin-right: 80px !important;
 }
 
-/* Skeleton Loader Styles */
+/* skeleton Loading Effect */
 .tacotoc-skeleton-line {
 	height: 12px;
-	margin-bottom: 10px;
-	background: #e0e0e0;
-	background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+	margin-bottom: 12px;
+	background: #f1f5f9;
+	background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
 	background-size: 200% 100%;
 	animation: tacotoc-loading 1.5s infinite ease-in-out;
+	border-radius: 6px;
+}
+
+.tacotoc-skeleton-line:last-child {
+	margin-bottom: 0;
+}
+
+.tacotoc-skeleton-header {
+	width: 30%;
+	height: 18px;
+	margin-bottom: 24px;
 	border-radius: 4px;
 }
 
-/* Skeleton Width Utilities */
-.tacotoc-skeleton-header {
-	width: 40%;
-	height: 20px;
-	margin-bottom: 20px;
-}
-
-.tacotoc-skeleton-100 {
-	width: 100%;
-}
-
-.tacotoc-skeleton-90 {
-	width: 90%;
-}
-
-.tacotoc-skeleton-95 {
-	width: 95%;
-}
-
-.tacotoc-skeleton-80 {
-	width: 80%;
-}
+.tacotoc-skeleton-100 { width: 100%; }
+.tacotoc-skeleton-90 { width: 90%; }
+.tacotoc-skeleton-95 { width: 95%; }
+.tacotoc-skeleton-80 { width: 80%; }
 
 @keyframes tacotoc-loading {
 	0% { background-position: 200% 0; }

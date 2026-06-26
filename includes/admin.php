@@ -229,10 +229,9 @@ function tacotoc_post_types_field_render() {
 			continue;
 		}
 
-		$checked = in_array( $post_type->name, $options, true ) ? 'checked="checked"' : '';
 		?>
 		<label class="tacotoc-checkbox-label">
-			<input type="checkbox" name="tacotoc_post_types[]" value="<?php echo esc_attr( $post_type->name ); ?>" <?php echo $checked; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<input type="checkbox" name="tacotoc_post_types[]" value="<?php echo esc_attr( $post_type->name ); ?>" <?php checked( in_array( $post_type->name, $options, true ) ); ?>>
 			<?php echo esc_html( $post_type->label ); ?>
 		</label>
 		<?php
@@ -253,10 +252,9 @@ function tacotoc_headings_field_render() {
 
 	echo '<div class="tacotoc-checkbox-grid">';
 	foreach ( $headings as $heading ) {
-		$checked = in_array( $heading, $options, true ) ? 'checked="checked"' : '';
 		?>
 		<label class="tacotoc-checkbox-label">
-			<input type="checkbox" name="tacotoc_headings[]" value="<?php echo esc_attr( $heading ); ?>" <?php echo $checked; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<input type="checkbox" name="tacotoc_headings[]" value="<?php echo esc_attr( $heading ); ?>" <?php checked( in_array( $heading, $options, true ) ); ?>>
 			<?php echo esc_html( strtoupper( $heading ) ); ?>
 		</label>
 		<?php
@@ -277,10 +275,9 @@ function tacotoc_collapsible_headings_field_render() {
 
 	echo '<div class="tacotoc-checkbox-grid">';
 	foreach ( $headings as $heading ) {
-		$checked = in_array( $heading, $options, true ) ? 'checked="checked"' : '';
 		?>
 		<label class="tacotoc-checkbox-label">
-			<input type="checkbox" name="tacotoc_collapsible_headings[]" value="<?php echo esc_attr( $heading ); ?>" <?php echo $checked; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<input type="checkbox" name="tacotoc_collapsible_headings[]" value="<?php echo esc_attr( $heading ); ?>" <?php checked( in_array( $heading, $options, true ) ); ?>>
 			<?php echo esc_html( strtoupper( $heading ) ); ?>
 		</label>
 		<?php
@@ -322,6 +319,20 @@ function tacotoc_add_admin_menu() {
 	);
 }
 add_action( 'admin_menu', 'tacotoc_add_admin_menu' );
+
+/**
+ * Add settings action link to the plugins page.
+ *
+ * @since 1.9.1
+ * @param array $links Array of plugin action links.
+ * @return array Modified links.
+ */
+function tacotoc_add_settings_link( $links ) {
+	$settings_link = '<a href="options-general.php?page=tacotoc-settings">' . __( 'Settings', 'taco-table-of-contents' ) . '</a>';
+	array_unshift( $links, $settings_link );
+	return $links;
+}
+add_filter( 'plugin_action_links_' . plugin_basename( dirname( __DIR__ ) . '/taco-table-of-contents.php' ), 'tacotoc_add_settings_link' );
 
 /**
  * Render the HTML for the settings page with a modern layout.
