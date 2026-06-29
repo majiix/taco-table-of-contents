@@ -87,6 +87,32 @@
 			}
 		});
 
+		// Compute hierarchical numbers using hierarchyData parent relationships
+		const itemNumbers = [];
+		headings.forEach((heading, index) => {
+			const data = hierarchyData[index];
+			if (data.parentIndex === -1) {
+				// Count how many root items exist up to this index
+				let rootCount = 0;
+				for (let i = 0; i <= index; i++) {
+					if (hierarchyData[i].parentIndex === -1) {
+						rootCount++;
+					}
+				}
+				itemNumbers[index] = rootCount.toString();
+			} else {
+				// Count how many siblings with the same parentIndex exist up to this index
+				let siblingCount = 0;
+				const parentIdx = data.parentIndex;
+				for (let i = parentIdx + 1; i <= index; i++) {
+					if (hierarchyData[i].parentIndex === parentIdx) {
+						siblingCount++;
+					}
+				}
+				itemNumbers[index] = itemNumbers[parentIdx] + '-' + siblingCount;
+			}
+		});
+
 		// Render TOCs for each instance independently to preserve event scoping
 		tocContainers.forEach(tocContainer => {
 			tocContainer.innerHTML = ''; // Clear skeleton loader
@@ -111,7 +137,16 @@
 
 				const link = document.createElement('a');
 				link.href = '#' + heading.id;
-				link.textContent = heading.textContent;
+
+				const numberSpan = document.createElement('span');
+				numberSpan.className = 'tacotoc-number';
+				numberSpan.textContent = itemNumbers[index] + '. ';
+				link.appendChild(numberSpan);
+
+				const textSpan = document.createElement('span');
+				textSpan.className = 'tacotoc-text';
+				textSpan.textContent = heading.textContent;
+				link.appendChild(textSpan);
 
 				li.appendChild(link);
 				tocList.appendChild(li);

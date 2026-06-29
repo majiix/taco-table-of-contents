@@ -55,8 +55,21 @@
 	color: #475569;
 	font-weight: 500;
 	transition: color 0.2s ease, transform 0.2s ease;
-	display: inline-block;
+	display: inline-flex;
+	align-items: flex-start;
 	padding: 2px 0;
+}
+
+.tacotoc-number {
+	color: #475569;
+	font-weight: 600;
+	margin-right: 6px;
+	flex-shrink: 0;
+}
+
+body.rtl .tacotoc-number {
+	margin-right: 0;
+	margin-left: 6px;
 }
 
 .tacotoc-wrapper ol li a:hover {
@@ -82,6 +95,9 @@
 	border-radius: 6px;
 	margin-right: 8px;
 	transition: all 0.2s ease;
+	    position: absolute;
+    left: -25px;
+    top: 4px;
 }
 
 .tacotoc-toggle:hover {
@@ -94,6 +110,10 @@
 .tacotoc-wrapper ol li.active > a {
 	font-weight: 700;
 	color: #2563eb; /* Modern Blue */
+}
+
+.tacotoc-wrapper ol li.active > a .tacotoc-number {
+	color: #2563eb;
 }
 
 .tacotoc-wrapper ol li.active {

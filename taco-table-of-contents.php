@@ -3,7 +3,7 @@
  * Plugin Name: Taco Table of Contents
  * Plugin URI:  https://wordpress.org/plugins/taco-table-of-contents
  * Description: Generates a Table of Contents from heading tags. Supports auto-insertion and manual shortcode placement. Active item highlights on scroll.
- * Version:     1.9.1
+ * Version:     1.9.2
  * Author:      micromax
  * Text Domain: taco-table-of-contents
  * Domain Path: /languages
@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Define plugin constants for paths and URLs.
-define( 'TACOTOC_VERSION', '1.9.1' );
+define( 'TACOTOC_VERSION', '1.9.2' );
 define( 'TACOTOC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TACOTOC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 

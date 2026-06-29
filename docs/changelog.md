@@ -9,3 +9,8 @@ step 1:
 step 2:
 1- Bumped plugin version to 1.9.1 in main header, constants, and stable tags.
 2- Appended 1.9.1 release details to readme.txt.
+
+step 3:
+1- Added hierarchical numbering (using hyphens for subheadings) to Table of Contents list items in assets/js/taco-toc.js.
+2- Styled the new section numbers in assets/css/taco-toc.css using #475569 color for clean horizontal alignment and active state highlights.
+3- Bumped plugin version to 1.9.2 in main plugin file, constants, readme.txt, and changelog.md.
