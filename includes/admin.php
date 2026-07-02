@@ -160,8 +160,13 @@ function tacotoc_sanitize_post_types( $input ) {
 	);
 	$allowed_post_types = get_post_types( $args, 'names' );
 
-	// Sanitize raw input values to keys.
-	$sanitized_input = array_map( 'sanitize_key', $input );
+	// Sanitize raw input values to keys, ensuring they are scalar.
+	$sanitized_input = array();
+	foreach ( $input as $value ) {
+		if ( is_scalar( $value ) ) {
+			$sanitized_input[] = sanitize_key( (string) $value );
+		}
+	}
 
 	// Intersect the arrays to ensure we only save valid, existing post types.
 	return array_intersect( $sanitized_input, $allowed_post_types );
@@ -178,8 +183,14 @@ function tacotoc_sanitize_headings( $input ) {
 	if ( ! is_array( $input ) ) {
 		return array();
 	}
+	$sanitized_input = array();
+	foreach ( $input as $value ) {
+		if ( is_scalar( $value ) ) {
+			$sanitized_input[] = (string) $value;
+		}
+	}
 	$allowed = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
-	return array_intersect( $input, $allowed );
+	return array_intersect( $sanitized_input, $allowed );
 }
 
 /**
@@ -196,7 +207,7 @@ function tacotoc_main_section_callback() {
  * Render the input field for the content selector.
  */
 function tacotoc_selector_field_render() {
-	$option = get_option( 'tacotoc_content_selector', '.entry-content' );
+	$option = (string) get_option( 'tacotoc_content_selector', '.entry-content' );
 	?>
 	<input type="text"
 		name="tacotoc_content_selector"
@@ -290,7 +301,7 @@ function tacotoc_collapsible_headings_field_render() {
  * Render the display location select.
  */
 function tacotoc_display_location_render() {
-	$option = get_option( 'tacotoc_display_location', 'manual' );
+	$option = (string) get_option( 'tacotoc_display_location', 'manual' );
 	?>
 	<select name="tacotoc_display_location" class="tacotoc-select">
 		<option value="manual" <?php selected( 'manual', $option ); ?>><?php esc_html_e( 'Manual (Shortcode Only)', 'taco-table-of-contents' ); ?></option>
@@ -332,7 +343,7 @@ function tacotoc_add_settings_link( $links ) {
 	array_unshift( $links, $settings_link );
 	return $links;
 }
-add_filter( 'plugin_action_links_' . plugin_basename( dirname( __DIR__ ) . '/taco-table-of-contents.php' ), 'tacotoc_add_settings_link' );
+add_filter( 'plugin_action_links_' . plugin_basename( TACOTOC_PLUGIN_DIR . 'taco-table-of-contents.php' ), 'tacotoc_add_settings_link' );
 
 /**
  * Render the HTML for the settings page with a modern layout.

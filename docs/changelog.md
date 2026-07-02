@@ -14,3 +14,13 @@ step 3:
 1- Added hierarchical numbering (using hyphens for subheadings) to Table of Contents list items in assets/js/taco-toc.js.
 2- Styled the new section numbers in assets/css/taco-toc.css using #475569 color for clean horizontal alignment and active state highlights.
 3- Bumped plugin version to 1.9.2 in main plugin file, constants, readme.txt, and changelog.md.
+
+step 4:
+1- Hardened option inputs and settings sanitization logic in admin.php to filter out non-scalar input, preventing TypeError fatals on PHP 8.0+.
+2- Cast settings option values to string/array explicitly in admin.php and frontend.php to avoid PHP 8 TypeErrors.
+3- Added try...catch error handling to DOM querySelector calls in taco-toc.js to prevent JS execution halting on invalid selectors.
+4- Wrapped URL hash decoding in decodeURIComponent with try...catch to handle Unicode headings correctly and prevent URIErrors.
+5- Implemented requestAnimationFrame throttling for scroll event spy highlighting to improve page scrolling performance.
+6- Added duplicate ID resolution registry to prevent duplicate HTML element IDs on the same page.
+7- Bumped plugin version to 1.9.3 across all relevant files (main file header, constants, readme.txt, and docs/changelog.md).
+Commit message: refactor(core): harden codebase to prevent PHP/JS errors and optimize scroll spy performance

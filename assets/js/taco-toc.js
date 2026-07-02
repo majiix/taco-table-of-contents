@@ -24,7 +24,12 @@
 
 		const collapsibleTags = collapsibleSelector ? collapsibleSelector.split(',').map(t => t.trim().toLowerCase()) : [];
 
-		const container = document.querySelector(contentSelector);
+		let container = null;
+		try {
+			container = document.querySelector(contentSelector);
+		} catch (e) {
+			console.warn('Taco TOC: Invalid content selector: ' + contentSelector, e);
+		}
 
 		// Helper to hide all containers if content is missing
 		function hideAllContainers() {
@@ -38,7 +43,14 @@
 		}
 
 		// Select headings based on user preference
-		const headings = container.querySelectorAll(headingsSelector);
+		let headings = [];
+		if (container) {
+			try {
+				headings = container.querySelectorAll(headingsSelector);
+			} catch (e) {
+				console.warn('Taco TOC: Invalid headings selector: ' + headingsSelector, e);
+			}
+		}
 
 		// If no headings found, hide skeleton loaders and exit.
 		if (headings.length === 0) {
@@ -48,6 +60,7 @@
 
 		// Prepare IDs and hierarchy relationships once for the DOM content
 		const hierarchyData = [];
+		const usedIds = {};
 		headings.forEach((heading, index) => {
 			// Ensure heading has an ID for native anchor jumping (supporting Unicode/non-Latin scripts and accents)
 			if (!heading.id) {
@@ -59,12 +72,25 @@
 					.replace(/^-+|-+$/g, ''); // Trim hyphens
 
 				if (!slug) {
-					slug = 'heading_' + index;
+					slug = 'heading';
 				}
-				heading.id = slug;
+
+				let uniqueSlug = slug;
+				let suffix = 1;
+				while (document.getElementById(uniqueSlug) || usedIds[uniqueSlug]) {
+					uniqueSlug = slug + '-' + suffix;
+					suffix++;
+				}
+				heading.id = uniqueSlug;
+				usedIds[uniqueSlug] = true;
+			} else {
+				usedIds[heading.id] = true;
 			}
 
-			const level = parseInt(heading.tagName.substring(1));
+			let level = parseInt(heading.tagName.substring(1), 10);
+			if (isNaN(level)) {
+				level = 1;
+			}
 			let parentIndex = -1;
 
 			// Find nearest parent (the closest preceding heading with a numerically lower H-level)
@@ -227,25 +253,31 @@
 
 		// Check URL Hash and Scroll if needed
 		if (window.location.hash) {
-			const hash = window.location.hash.substring(1);
-			const targetElement = document.getElementById(hash);
+			try {
+				const hash = decodeURIComponent(window.location.hash.substring(1));
+				if (hash) {
+					const targetElement = document.getElementById(hash);
 
-			if (targetElement) {
-				setTimeout(() => {
-					let offset = 20;
-					const adminBar = document.getElementById('wpadminbar');
-					if (adminBar) {
-						offset += adminBar.offsetHeight;
+					if (targetElement) {
+						setTimeout(() => {
+							let offset = 20;
+							const adminBar = document.getElementById('wpadminbar');
+							if (adminBar) {
+								offset += adminBar.offsetHeight;
+							}
+
+							const elementPosition = targetElement.getBoundingClientRect().top;
+							const offsetPosition = elementPosition + window.scrollY - offset;
+
+							window.scrollTo({
+								top: offsetPosition,
+								behavior: 'auto'
+							});
+						}, 0);
 					}
-
-					const elementPosition = targetElement.getBoundingClientRect().top;
-					const offsetPosition = elementPosition + window.scrollY - offset;
-
-					window.scrollTo({
-						top: offsetPosition,
-						behavior: 'auto'
-					});
-				}, 0);
+				}
+			} catch (e) {
+				console.warn('Taco TOC: Error decoding URL hash: ', e);
 			}
 		}
 
@@ -279,7 +311,18 @@
 			});
 		}
 
-		window.addEventListener('scroll', onScroll);
+		let ticking = false;
+		function onScrollThrottled() {
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					onScroll();
+					ticking = false;
+				});
+				ticking = true;
+			}
+		}
+
+		window.addEventListener('scroll', onScrollThrottled);
 		onScroll();
 	});
 })();

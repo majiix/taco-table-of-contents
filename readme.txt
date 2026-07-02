@@ -1,10 +1,9 @@
-
 === Taco Table of Contents ===
 Contributors: micromax2
 Tags: table of contents, toc, navigation, scroll,  contents
 Requires at least: 5.0
 Tested up to: 7.0
-Stable tag: 1.9.2
+Stable tag: 1.9.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -64,6 +63,15 @@ Check Settings > Taco TOC and ensure the "Content Selector" matches your theme's
 Yes, the shortcode will always work. If you use the shortcode on a page where auto-insert is also active, you might see two tables.
 
 == Changelog ==
+
+= 1.9.3 =
+
+* Hardened option inputs and settings sanitization logic to prevent TypeErrors in PHP 8.x.
+* Cast settings options to expected string/array types across settings and display files.
+* Wrapped DOM query selectors in try...catch blocks to prevent unhandled JS exceptions from invalid inputs.
+* Decoded Unicode URLs safely and handled URIErrors in hash scrolling.
+* Added duplicate ID registry resolution to prevent duplicate element IDs on headings.
+* Throttled scrollspy active highlighting with requestAnimationFrame for smooth and lag-free page scrolling.
 
 = 1.9.2 =
 

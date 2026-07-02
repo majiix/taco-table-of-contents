@@ -36,13 +36,14 @@ function tacotoc_register_assets() {
 	);
 
 	// Retrieve settings.
-	$selector = get_option( 'tacotoc_content_selector', '.entry-content' );
+	$selector = (string) get_option( 'tacotoc_content_selector', '.entry-content' );
 
 	// Retrieve allowed headings, default to h1, h2, h3.
 	$headings_list = get_option( 'tacotoc_headings', array( 'h1', 'h2', 'h3' ) );
 	if ( ! is_array( $headings_list ) || empty( $headings_list ) ) {
 		$headings_list = array( 'h1', 'h2', 'h3' );
 	}
+	$headings_list = array_map( 'strval', $headings_list );
 	$headings_str = implode( ', ', $headings_list );
 
 	// Retrieve collapsible headings.
@@ -50,6 +51,7 @@ function tacotoc_register_assets() {
 	if ( ! is_array( $collapsible_list ) ) {
 		$collapsible_list = array();
 	}
+	$collapsible_list = array_map( 'strval', $collapsible_list );
 	$collapsible_str = implode( ',', $collapsible_list );
 
 	// Prepare configuration to pass to JavaScript.
@@ -113,6 +115,11 @@ add_shortcode( 'taco_toc', 'tacotoc_render_shortcode' );
  */
 function tacotoc_auto_insert_toc( $content ) {
 	static $has_run = false;
+
+	// Ensure content is a valid string.
+	if ( ! is_string( $content ) ) {
+		return $content;
+	}
 
 	// Basic checks: in loop, main query.
 	if ( ! in_the_loop() || ! is_main_query() ) {
