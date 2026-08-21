@@ -5,7 +5,7 @@ Taco Table of Contents is a lightweight and performant WordPress plugin that aut
 ## Tech Stack
 - **Backend**: PHP 7.4+
 - **Frontend**: Vanilla JavaScript (ES6+), Vanilla CSS
-- **WordPress Compatibility**: Designed for WordPress 5.0+, tested up to 7.0
+- **WordPress Compatibility**: Designed for WordPress 5.0+, tested up to 7.1
 
 ## System Architecture
 

@@ -24,3 +24,9 @@ step 4:
 6- Added duplicate ID resolution registry to prevent duplicate HTML element IDs on the same page.
 7- Bumped plugin version to 1.9.3 across all relevant files (main file header, constants, readme.txt, and docs/changelog.md).
 Commit message: refactor(core): harden codebase to prevent PHP/JS errors and optimize scroll spy performance
+
+step 5:
+1- Audited codebase against WordPress 7.1.0 Field Guide specifications.
+2- Confirmed full compatibility with persistent admin toolbar, enforced iframed editor, and Settings API updates.
+3- Bumped plugin version to 1.9.4 in taco-table-of-contents.php, constants, readme.txt, and docs.
+4- Updated "Tested up to" WordPress version to 7.1 across documentation and readme.txt.

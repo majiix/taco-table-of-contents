@@ -2,8 +2,8 @@
 Contributors: micromax2
 Tags: table of contents, toc, navigation, scroll,  contents
 Requires at least: 5.0
-Tested up to: 7.0
-Stable tag: 1.9.3
+Tested up to: 7.1
+Stable tag: 1.9.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -63,6 +63,11 @@ Check Settings > Taco TOC and ensure the "Content Selector" matches your theme's
 Yes, the shortcode will always work. If you use the shortcode on a page where auto-insert is also active, you might see two tables.
 
 == Changelog ==
+
+= 1.9.4 =
+
+* Verified compatibility with WordPress 7.1.0 release.
+* Updated "Tested up to" WordPress version tag to 7.1.
 
 = 1.9.3 =
 
