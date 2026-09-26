@@ -93,6 +93,17 @@ function tacotoc_register_settings() {
 		)
 	);
 
+	// Register Clean URLs & SEO Mode setting.
+	register_setting(
+		'tacotoc_options_group',
+		'tacotoc_clean_urls',
+		array(
+			'type'              => 'integer',
+			'sanitize_callback' => 'tacotoc_sanitize_checkbox',
+			'default'           => 1,
+		)
+	);
+
 	add_settings_section(
 		'tacotoc_main_section',
 		__( 'Configuration', 'taco-table-of-contents' ),
@@ -104,6 +115,14 @@ function tacotoc_register_settings() {
 		'tacotoc_display_location',
 		__( 'Display Location', 'taco-table-of-contents' ),
 		'tacotoc_display_location_render',
+		'tacotoc-settings-page',
+		'tacotoc_main_section'
+	);
+
+	add_settings_field(
+		'tacotoc_clean_urls',
+		__( 'Clean URLs & SEO Mode', 'taco-table-of-contents' ),
+		'tacotoc_clean_urls_field_render',
 		'tacotoc-settings-page',
 		'tacotoc_main_section'
 	);
@@ -191,6 +210,17 @@ function tacotoc_sanitize_headings( $input ) {
 	}
 	$allowed = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
 	return array_intersect( $sanitized_input, $allowed );
+}
+
+/**
+ * Sanitize a checkbox input to an integer 1 or 0.
+ *
+ * @since 1.10.0
+ * @param mixed $input Raw input value.
+ * @return int 1 if checked, 0 otherwise.
+ */
+function tacotoc_sanitize_checkbox( $input ) {
+	return ! empty( $input ) ? 1 : 0;
 }
 
 /**
@@ -310,6 +340,25 @@ function tacotoc_display_location_render() {
 	</select>
 	<p class="description">
 		<?php esc_html_e( 'Where should the Table of Contents appear automatically?', 'taco-table-of-contents' ); ?>
+	</p>
+	<?php
+}
+
+/**
+ * Render the checkbox for Clean URLs & SEO Mode.
+ *
+ * @since 1.10.0
+ * @return void
+ */
+function tacotoc_clean_urls_field_render() {
+	$option = (bool) get_option( 'tacotoc_clean_urls', 1 );
+	?>
+	<label class="tacotoc-checkbox-label">
+		<input type="checkbox" name="tacotoc_clean_urls" value="1" <?php checked( $option ); ?>>
+		<?php esc_html_e( 'Prevent URL hash mutation in the address bar & add rel="nofollow"', 'taco-table-of-contents' ); ?>
+	</label>
+	<p class="description">
+		<?php esc_html_e( 'Eliminates URL anchor fragment indexation and keyword cannibalization by keeping the browser address bar clean and preventing crawlers from mapping internal fragments as separate landing pages.', 'taco-table-of-contents' ); ?>
 	</p>
 	<?php
 }

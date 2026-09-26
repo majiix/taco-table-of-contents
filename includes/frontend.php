@@ -54,11 +54,15 @@ function tacotoc_register_assets() {
 	$collapsible_list = array_map( 'strval', $collapsible_list );
 	$collapsible_str = implode( ',', $collapsible_list );
 
+	// Retrieve Clean URLs setting, default to enabled (1).
+	$clean_urls = (bool) get_option( 'tacotoc_clean_urls', 1 );
+
 	// Prepare configuration to pass to JavaScript.
 	$config_data = array(
 		'selector'    => $selector,
 		'headings'    => $headings_str,
 		'collapsible' => $collapsible_str,
+		'cleanUrls'   => $clean_urls,
 		'title'       => __( 'Table of Contents', 'taco-table-of-contents' ),
 	);
 

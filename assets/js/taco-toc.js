@@ -22,6 +22,10 @@
 			? tacotoc_config.collapsible
 			: '';
 
+		const cleanUrls = (typeof tacotoc_config !== 'undefined' && typeof tacotoc_config.cleanUrls !== 'undefined')
+			? Boolean(tacotoc_config.cleanUrls)
+			: true;
+
 		const collapsibleTags = collapsibleSelector ? collapsibleSelector.split(',').map(t => t.trim().toLowerCase()) : [];
 
 		let container = null;
@@ -34,6 +38,26 @@
 		// Helper to hide all containers if content is missing
 		function hideAllContainers() {
 			tocContainers.forEach(el => el.style.display = 'none');
+		}
+
+		// Helper to scroll smoothly to a heading accounting for top offsets
+		function scrollToHeading(targetElement, behavior) {
+			if (!targetElement) {
+				return;
+			}
+			let offset = 20;
+			const adminBar = document.getElementById('wpadminbar');
+			if (adminBar) {
+				offset += adminBar.offsetHeight;
+			}
+
+			const elementPosition = targetElement.getBoundingClientRect().top;
+			const offsetPosition = elementPosition + window.scrollY - offset;
+
+			window.scrollTo({
+				top: offsetPosition,
+				behavior: behavior || 'smooth'
+			});
 		}
 
 		// If the content source is missing, hide skeleton loaders and exit.
@@ -164,6 +188,15 @@
 				const link = document.createElement('a');
 				link.href = '#' + heading.id;
 
+				if (cleanUrls) {
+					link.setAttribute('rel', 'nofollow');
+					link.addEventListener('click', function(e) {
+						e.preventDefault();
+						const target = document.getElementById(heading.id);
+						scrollToHeading(target, 'smooth');
+					});
+				}
+
 				const numberSpan = document.createElement('span');
 				numberSpan.className = 'tacotoc-number';
 				numberSpan.textContent = itemNumbers[index] + '. ';
@@ -260,19 +293,11 @@
 
 					if (targetElement) {
 						setTimeout(() => {
-							let offset = 20;
-							const adminBar = document.getElementById('wpadminbar');
-							if (adminBar) {
-								offset += adminBar.offsetHeight;
+							scrollToHeading(targetElement, 'auto');
+
+							if (cleanUrls && window.history && window.history.replaceState) {
+								window.history.replaceState(null, '', window.location.pathname + window.location.search);
 							}
-
-							const elementPosition = targetElement.getBoundingClientRect().top;
-							const offsetPosition = elementPosition + window.scrollY - offset;
-
-							window.scrollTo({
-								top: offsetPosition,
-								behavior: 'auto'
-							});
 						}, 0);
 					}
 				}

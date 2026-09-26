@@ -30,3 +30,12 @@ step 5:
 2- Confirmed full compatibility with persistent admin toolbar, enforced iframed editor, and Settings API updates.
 3- Bumped plugin version to 1.9.4 in taco-table-of-contents.php, constants, readme.txt, and docs.
 4- Updated "Tested up to" WordPress version to 7.1 across documentation and readme.txt.
+
+step 6:
+1- Added Clean URLs & SEO Mode setting toggle in admin panel with boolean sanitization.
+2- Localized cleanUrls option to frontend script.
+3- Added rel="nofollow" to generated Table of Contents links to suppress crawler fragment mapping.
+4- Intercepted TOC link clicks with offset-aware smooth scrolling without mutating the browser address bar.
+5- Implemented automatic URL hash sanitization via history.replaceState on load after scrolling to target heading.
+6- Created docs/project.md covering overview, tech stack, architecture, and verification.
+7- Bumped plugin version to 1.10.0 across all relevant files (main file header, constants, readme.txt, and docs/changelog.md).
