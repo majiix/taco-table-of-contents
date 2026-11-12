@@ -39,3 +39,9 @@ step 6:
 5- Implemented automatic URL hash sanitization via history.replaceState on load after scrolling to target heading.
 6- Created docs/project.md covering overview, tech stack, architecture, and verification.
 7- Bumped plugin version to 1.10.0 across all relevant files (main file header, constants, readme.txt, and docs/changelog.md).
+
+step 7:
+1- Removed rel="nofollow" attribute from Table of Contents anchor links in assets/js/taco-toc.js to preserve natural internal search indexing.
+2- Updated Clean URLs setting label and description in includes/admin.php.
+3- Bumped plugin version to 1.10.1 in taco-table-of-contents.php, constants, readme.txt, and docs.
+4- Updated docs/features.md and docs/project.md to reflect removal of crawler nofollow hints.

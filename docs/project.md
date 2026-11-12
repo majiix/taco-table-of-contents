@@ -30,7 +30,6 @@ Taco Table of Contents is a lightweight, performance-focused WordPress plugin th
 - **Scroll Spy**: Tracks viewport position and highlights the currently read heading in the TOC.
 - **Clean URLs & SEO Mode**: Eliminates URL anchor fragment indexation and keyword cannibalization:
   - Intercepts clicks and performs offset-aware smooth scrolling without mutating the address bar.
-  - Adds `rel="nofollow"` to TOC links to suppress crawler fragment mapping.
   - Automatically sanitizes incoming `#hashes` on load using `history.replaceState`.
   - Configurable admin toggle under Settings > Taco TOC.
 
@@ -39,5 +38,6 @@ Run syntax and linting checks:
 ```powershell
 rtk php -l includes/admin.php
 rtk php -l includes/frontend.php
+rtk php -l taco-table-of-contents.php
 rtk node --check assets/js/taco-toc.js
 ```

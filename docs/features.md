@@ -17,5 +17,4 @@ Here is a list of features supported by the Taco Table of Contents plugin:
 
 ## SEO & URL Hygiene
 - **Clean URLs & SEO Mode**: Eliminates URL anchor fragment indexation and keyword cannibalization by intercepting TOC clicks with smooth scrolling without mutating the browser address bar.
-- **Crawler Hinting (rel="nofollow")**: Adds `rel="nofollow"` to generated TOC anchor tags to prevent search crawlers from mapping intra-page fragments as separate landing targets.
 - **Automatic Hash Sanitization**: Strips incoming URL hashes via `history.replaceState` on load after scrolling to the target heading, preventing visitors from re-sharing fragmented links.

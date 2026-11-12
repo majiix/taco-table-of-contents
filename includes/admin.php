@@ -355,10 +355,10 @@ function tacotoc_clean_urls_field_render() {
 	?>
 	<label class="tacotoc-checkbox-label">
 		<input type="checkbox" name="tacotoc_clean_urls" value="1" <?php checked( $option ); ?>>
-		<?php esc_html_e( 'Prevent URL hash mutation in the address bar & add rel="nofollow"', 'taco-table-of-contents' ); ?>
+		<?php esc_html_e( 'Prevent URL hash mutation in the address bar', 'taco-table-of-contents' ); ?>
 	</label>
 	<p class="description">
-		<?php esc_html_e( 'Eliminates URL anchor fragment indexation and keyword cannibalization by keeping the browser address bar clean and preventing crawlers from mapping internal fragments as separate landing pages.', 'taco-table-of-contents' ); ?>
+		<?php esc_html_e( 'Eliminates URL anchor fragment indexation and keyword cannibalization by keeping the browser address bar clean when navigating Table of Contents sections.', 'taco-table-of-contents' ); ?>
 	</p>
 	<?php
 }

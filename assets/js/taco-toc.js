@@ -189,7 +189,6 @@
 				link.href = '#' + heading.id;
 
 				if (cleanUrls) {
-					link.setAttribute('rel', 'nofollow');
 					link.addEventListener('click', function(e) {
 						e.preventDefault();
 						const target = document.getElementById(heading.id);

@@ -3,7 +3,7 @@ Contributors: micromax2
 Tags: table of contents, toc, navigation, scroll,  contents
 Requires at least: 5.0
 Tested up to: 7.1
-Stable tag: 1.10.0
+Stable tag: 1.10.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -63,6 +63,11 @@ Check Settings > Taco TOC and ensure the "Content Selector" matches your theme's
 Yes, the shortcode will always work. If you use the shortcode on a page where auto-insert is also active, you might see two tables.
 
 == Changelog ==
+
+= 1.10.1 =
+
+* Maintenance: Removed rel="nofollow" attribute from generated Table of Contents links to preserve natural internal link indexing.
+* Refined Clean URLs setting label and description in the admin dashboard.
 
 = 1.10.0 =
 
